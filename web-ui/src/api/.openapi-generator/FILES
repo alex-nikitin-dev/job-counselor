@@ -1,0 +1,17 @@
+.openapi-generator-ignore
+apis/AnalyticsApi.ts
+apis/CoverLetterApi.ts
+apis/JobApi.ts
+apis/ProfileApi.ts
+apis/ResumeApi.ts
+apis/index.ts
+index.ts
+models/ApiV1ProfilesIdPutRequest.ts
+models/ApiV1ProfilesPostRequest.ts
+models/EducationItem.ts
+models/ExperienceItem.ts
+models/Language.ts
+models/Profile.ts
+models/Skill.ts
+models/index.ts
+runtime.ts

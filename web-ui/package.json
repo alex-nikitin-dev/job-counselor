@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "openapi:gen": "openapi-generator-cli generate -i ../openapi.yaml -g typescript-fetch -o src/api --additional-properties=supportsES6=true,withNodeImports=true"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
@@ -36,6 +37,7 @@
     "tailwindcss-cli": "^0.1.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "@openapitools/openapi-generator-cli": "^2.7.1"
   }
 }
