@@ -49,56 +49,48 @@ public class AppDbContext : DbContext
             builder.HasKey(p => p.Id);
 
             // Map skills collection stored in a separate table using the private backing field.
-            builder.OwnsMany<Skill>(
-                nameof(Profile.Skills),
-                sb =>
-                {
-                    sb.WithOwner().HasForeignKey("ProfileId");
-                    sb.Property<Guid>("Id");
-                    sb.HasKey("Id");
-                    sb.ToTable("ProfileSkills");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(p => p.Skills, sb =>
+            {
+                sb.WithOwner().HasForeignKey("ProfileId");
+                sb.Property<Guid>("Id");
+                sb.HasKey("Id");
+                sb.ToTable("ProfileSkills");
+            });
+            builder.Navigation(p => p.Skills)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
 
             // Education collection
-            builder.OwnsMany<EducationItem>(
-                nameof(Profile.Education),
-                eb =>
-                {
-                    eb.WithOwner().HasForeignKey("ProfileId");
-                    eb.Property<Guid>("Id");
-                    eb.HasKey("Id");
-                    eb.ToTable("ProfileEducation");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(p => p.Education, eb =>
+            {
+                eb.WithOwner().HasForeignKey("ProfileId");
+                eb.Property<Guid>("Id");
+                eb.HasKey("Id");
+                eb.ToTable("ProfileEducation");
+            });
+            builder.Navigation(p => p.Education)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
 
             // Experience collection
-            builder.OwnsMany<ExperienceItem>(
-                nameof(Profile.Experience),
-                exb =>
-                {
-                    exb.WithOwner().HasForeignKey("ProfileId");
-                    exb.Property<Guid>("Id");
-                    exb.HasKey("Id");
-                    exb.ToTable("ProfileExperience");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(p => p.Experience, exb =>
+            {
+                exb.WithOwner().HasForeignKey("ProfileId");
+                exb.Property<Guid>("Id");
+                exb.HasKey("Id");
+                exb.ToTable("ProfileExperience");
+            });
+            builder.Navigation(p => p.Experience)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
 
             // Languages collection
-            builder.OwnsMany<Language>(
-                nameof(Profile.Languages),
-                lb =>
-                {
-                    lb.WithOwner().HasForeignKey("ProfileId");
-                    lb.Property<Guid>("Id");
-                    lb.HasKey("Id");
-                    lb.ToTable("ProfileLanguages");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(p => p.Languages, lb =>
+            {
+                lb.WithOwner().HasForeignKey("ProfileId");
+                lb.Property<Guid>("Id");
+                lb.HasKey("Id");
+                lb.ToTable("ProfileLanguages");
+            });
+            builder.Navigation(p => p.Languages)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         });
 
         // Map owned collections for Resume entity in a similar fashion.
@@ -106,41 +98,35 @@ public class AppDbContext : DbContext
         {
             builder.HasKey(r => r.Id);
 
-            builder.OwnsMany<Skill>(
-                nameof(Resume.Skills),
-                sb =>
-                {
-                    sb.WithOwner().HasForeignKey("ResumeId");
-                    sb.Property<Guid>("Id");
-                    sb.HasKey("Id");
-                    sb.ToTable("ResumeSkills");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(r => r.Skills, sb =>
+            {
+                sb.WithOwner().HasForeignKey("ResumeId");
+                sb.Property<Guid>("Id");
+                sb.HasKey("Id");
+                sb.ToTable("ResumeSkills");
+            });
+            builder.Navigation(r => r.Skills)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-            builder.OwnsMany<EducationItem>(
-                nameof(Resume.Education),
-                eb =>
-                {
-                    eb.WithOwner().HasForeignKey("ResumeId");
-                    eb.Property<Guid>("Id");
-                    eb.HasKey("Id");
-                    eb.ToTable("ResumeEducation");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(r => r.Education, eb =>
+            {
+                eb.WithOwner().HasForeignKey("ResumeId");
+                eb.Property<Guid>("Id");
+                eb.HasKey("Id");
+                eb.ToTable("ResumeEducation");
+            });
+            builder.Navigation(r => r.Education)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
 
-            builder.OwnsMany<ExperienceItem>(
-                nameof(Resume.Experience),
-                exb =>
-                {
-                    exb.WithOwner().HasForeignKey("ResumeId");
-                    exb.Property<Guid>("Id");
-                    exb.HasKey("Id");
-                    exb.ToTable("ResumeExperience");
-                })
-                .Navigation
-                .SetPropertyAccessMode(PropertyAccessMode.Field);
+            builder.OwnsMany(r => r.Experience, exb =>
+            {
+                exb.WithOwner().HasForeignKey("ResumeId");
+                exb.Property<Guid>("Id");
+                exb.HasKey("Id");
+                exb.ToTable("ResumeExperience");
+            });
+            builder.Navigation(r => r.Experience)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         });
     }
 }

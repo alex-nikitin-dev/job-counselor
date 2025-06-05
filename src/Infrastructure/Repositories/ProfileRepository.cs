@@ -15,4 +15,10 @@ public class ProfileRepository : EfRepository<Profile>, IProfileRepository
     public ProfileRepository(AppDbContext context) : base(context)
     {
     }
+
+    /// <inheritdoc />
+    public Task<Profile?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return base.GetByIdAsync(id, cancellationToken);
+    }
 }

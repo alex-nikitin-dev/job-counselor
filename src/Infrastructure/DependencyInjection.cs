@@ -3,6 +3,7 @@ using JobCounselor.Application.Interfaces;
 using JobCounselor.Infrastructure.Data;
 using JobCounselor.Infrastructure.Repositories;
 using JobCounselor.Infrastructure.Services;
+using JobCounselor.Domain.Entities;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
