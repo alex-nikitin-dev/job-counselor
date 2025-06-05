@@ -72,7 +72,7 @@
 ### Local Run (Backend + DB + Ollama)
 
 ```bash
-git clone https://github.com/YOUR_REPO/Job-Counselor.git
+git clone git@github.com:alex-nikitin-dev/job-counselor.git
 cd Job-Counselor
 docker compose up --build
 ```
