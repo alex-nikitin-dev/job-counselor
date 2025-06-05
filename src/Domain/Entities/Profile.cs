@@ -37,6 +37,21 @@ public class Profile
     }
 
     /// <summary>
+    /// Updates the basic contact details for the profile.
+    /// </summary>
+    /// <param name="fullName">Updated full name.</param>
+    /// <param name="email">Updated email address.</param>
+    /// <param name="phone">Updated phone number.</param>
+    /// <param name="summary">Updated professional summary.</param>
+    public void UpdateDetails(string fullName, string email, string phone, string summary)
+    {
+        FullName = fullName;
+        Email = email;
+        Phone = phone;
+        Summary = summary;
+    }
+
+    /// <summary>
     /// Adds a skill to the profile.
     /// </summary>
     public void AddSkill(Skill skill) => _skills.Add(skill);

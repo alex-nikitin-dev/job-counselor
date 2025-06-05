@@ -21,11 +21,8 @@ public class UpdateProfileCommandHandler : IRequestHandler<UpdateProfileCommand,
         var profile = await _repository.GetByIdAsync(request.ProfileId, cancellationToken) ??
                        throw new InvalidOperationException("Profile not found");
 
-        // Update basic fields
-        typeof(Profile).GetProperty("FullName")!.SetValue(profile, request.FullName);
-        typeof(Profile).GetProperty("Email")!.SetValue(profile, request.Email);
-        typeof(Profile).GetProperty("Phone")!.SetValue(profile, request.Phone);
-        typeof(Profile).GetProperty("Summary")!.SetValue(profile, request.Summary);
+        // Use domain method to update details
+        profile.UpdateDetails(request.FullName, request.Email, request.Phone, request.Summary);
 
         await _repository.UpdateAsync(profile, cancellationToken);
         return profile;
