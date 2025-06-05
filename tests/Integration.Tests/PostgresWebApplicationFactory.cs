@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using JobCounselor.Infrastructure.Data;
+using JobCounselor.Application.Interfaces;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Configurations;
@@ -62,6 +63,10 @@ public class PostgresWebApplicationFactory : WebApplicationFactory<Program>, IAs
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(_postgres.ConnectionString));
+
+            // Register simple stub services used by the application command handlers.
+            services.AddTransient<IResumeService, StubResumeService>();
+            services.AddTransient<ICoverLetterService, StubCoverLetterService>();
 
             // Switch authentication to the lightweight test scheme.
             services.AddAuthentication(TestAuthHandler.SchemeName)
