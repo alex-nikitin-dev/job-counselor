@@ -1,0 +1,21 @@
+# Files and directories that should not be copied into the Docker build context
+# when building the WebApi container. Keeping the context small speeds up builds.
+
+# Build output directories
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Git repository metadata
+.git
+
+# Node packages (if any are added later)
+node_modules/
+
+# IDE settings
+.vscode/
+
+# Local SPA build output placeholder
+webdist/
+

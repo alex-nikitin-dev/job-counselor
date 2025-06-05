@@ -1,0 +1,75 @@
+# ---------------------------------------------------------------------------
+# docker-compose configuration for local development of JobCounselor.
+# This file defines the application API, database, LLM backend (Ollama),
+# a placeholder web server for the SPA frontend and an optional Tempo
+# instance for distributed tracing.
+# ---------------------------------------------------------------------------
+version: '3.9'
+
+services:
+  # ---------------------------- API service ------------------------------
+  api:
+    # Build the container using the provided Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jobcounselor-api
+    ports:
+      - "8080:8080"     # expose API on localhost:8080
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__Default=Host=db;Database=jobcounselor;Username=job;Password=jobpw
+    depends_on:
+      - db
+      - ollama
+
+  # --------------------------- Database service -------------------------
+  db:
+    image: postgres:16
+    container_name: jobcounselor-db
+    environment:
+      - POSTGRES_USER=job
+      - POSTGRES_PASSWORD=jobpw
+      - POSTGRES_DB=jobcounselor
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"    # expose Postgres
+
+  # ---------------------------- Ollama service --------------------------
+  ollama:
+    image: ollama/ollama:latest
+    container_name: jobcounselor-ollama
+    ports:
+      - "11434:11434"  # default Ollama port
+    volumes:
+      - ollama-data:/root/.ollama
+    command: ["ollama", "serve"]
+    environment:
+      # The model to download and serve
+      - OLLAMA_MODELS=llama3:8b-instruct
+
+  # ----------------------------- Web service ----------------------------
+  web:
+    image: nginx:alpine
+    container_name: jobcounselor-web
+    volumes:
+      # Placeholder volume where the SPA build will eventually reside
+      - ./webdist:/usr/share/nginx/html:ro
+    ports:
+      - "8081:80"      # frontend served on localhost:8081
+    depends_on:
+      - api
+
+  # ----------------------------- Tempo service -------------------------
+  tempo:
+    image: grafana/tempo:latest
+    container_name: jobcounselor-tempo
+    ports:
+      - "3200:3200"    # Tempo API port
+    # Additional configuration can be mounted here if desired
+
+volumes:
+  db-data:
+  ollama-data:
+
