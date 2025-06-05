@@ -1,0 +1,244 @@
+openapi: 3.0.1
+info:
+  title: JobCounselor API
+  version: "1.0.0"
+  description: Minimal API surface for the JobCounselor backend
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Skill:
+      type: object
+      properties:
+        name:
+          type: string
+          example: C#
+        level:
+          type: string
+          example: Expert
+    EducationItem:
+      type: object
+      properties:
+        degree:
+          type: string
+          example: B.Sc. Computer Science
+        institution:
+          type: string
+          example: Contoso University
+        startDate:
+          type: string
+          format: date
+          example: "2018-09-01"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2022-06-01"
+    ExperienceItem:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Software Engineer
+        company:
+          type: string
+          example: Contoso Ltd.
+        startDate:
+          type: string
+          format: date
+          example: "2022-07-01"
+        endDate:
+          type: string
+          format: date
+          nullable: true
+          example: "2024-01-01"
+        description:
+          type: string
+          example: Developed numerous web applications.
+    Language:
+      type: object
+      properties:
+        name:
+          type: string
+          example: English
+        proficiency:
+          type: string
+          example: Native
+    Profile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        fullName:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john@example.com
+        phone:
+          type: string
+          example: "555-1234"
+        summary:
+          type: string
+          example: Experienced software developer
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/EducationItem'
+        experience:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExperienceItem'
+        languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Language'
+paths:
+  /api/v1/profiles:
+    get:
+      summary: Get all profiles
+      tags:
+        - Profile
+      responses:
+        '200':
+          description: List profiles (placeholder)
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: profile list placeholder
+    post:
+      summary: Create a profile
+      tags:
+        - Profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullName:
+                  type: string
+                  example: Jane Doe
+                email:
+                  type: string
+                  example: jane@example.com
+                phone:
+                  type: string
+                  example: "555-5555"
+                summary:
+                  type: string
+                  example: Seasoned professional
+      responses:
+        '200':
+          description: Newly created profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+  /api/v1/profiles/{id}:
+    put:
+      summary: Update a profile
+      tags:
+        - Profile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullName:
+                  type: string
+                  example: Jane Doe Updated
+                email:
+                  type: string
+                  example: jane.new@example.com
+                phone:
+                  type: string
+                  example: "555-0000"
+                summary:
+                  type: string
+                  example: Updated summary
+      responses:
+        '200':
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+  /api/v1/resumes:
+    get:
+      summary: Get resumes
+      tags:
+        - Resume
+      responses:
+        '200':
+          description: Placeholder list of resumes
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: resume list placeholder
+  /api/v1/coverletters:
+    get:
+      summary: Get cover letters
+      tags:
+        - CoverLetter
+      responses:
+        '200':
+          description: Placeholder list of cover letters
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: cover letter list placeholder
+  /api/v1/jobs:
+    get:
+      summary: Get jobs
+      tags:
+        - Job
+      responses:
+        '200':
+          description: Placeholder list of jobs
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: job list placeholder
+  /api/v1/analytics:
+    get:
+      summary: Get analytics
+      tags:
+        - Analytics
+      responses:
+        '200':
+          description: Placeholder analytics info
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: analytics placeholder
+
