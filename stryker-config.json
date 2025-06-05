@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stryker-mutator/stryker-net/master/docs/files/stryker.schema.json",
+  "solution": "JobTrack.ResumeBuilder.sln",
+  "projectUnderTest": [
+    "src/Application/Application.csproj",
+    "src/Domain/Domain.csproj",
+    "src/Infrastructure/Infrastructure.csproj"
+  ],
+  "testProjects": [
+    "tests/Application.Tests/Application.Tests.csproj",
+    "tests/Integration.Tests/Integration.Tests.csproj",
+    "tests/tests/tests.csproj"
+  ],
+  "thresholds": {
+    "high": 85,
+    "low": 80,
+    "break": 80
+  }
+}
