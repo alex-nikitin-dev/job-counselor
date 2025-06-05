@@ -1,6 +1,6 @@
 # Job Counselor
 
-[![Build & Test](https://github.com/alex-nikitin-dev/job-counselor/actions/workflows/ci.yml/badge.svg)]((https://github.com/alex-nikitin-dev/job-counselor/actions/workflows/ci.yml))
+[![Build & Test](https://github.com/alex-nikitin-dev/job-counselor/actions/workflows/ci.yml/badge.svg)](https://github.com/alex-nikitin-dev/job-counselor/actions/workflows/ci.yml)
 
 > **Professional Résumé Builder & Job Tracking System**  
 > Clean Architecture • .NET 8 • CQRS • AI-assisted • Production-ready backend-first project
