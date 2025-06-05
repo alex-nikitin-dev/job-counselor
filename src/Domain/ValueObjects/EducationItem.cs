@@ -10,6 +10,14 @@ public sealed record EducationItem
     public DateTime StartDate { get; }
     public DateTime? EndDate { get; }
 
+    // Parameterless constructor required by EF Core when materializing owned
+    // entity instances. Properties are initialized to non-null defaults.
+    private EducationItem()
+    {
+        Degree = string.Empty;
+        Institution = string.Empty;
+    }
+
     /// <summary>
     /// Creates a new <see cref="EducationItem"/> instance.
     /// </summary>

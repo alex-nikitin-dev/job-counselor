@@ -18,6 +18,9 @@
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.1.0" />
     <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="8.1.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
