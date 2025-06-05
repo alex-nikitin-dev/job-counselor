@@ -79,7 +79,7 @@ docker compose up --build
 
 API will be available at: [http://localhost:5001/swagger](http://localhost:5001/swagger)
 
-### Run Frontend (if enabled)
+### Run Frontend
 
 ```bash
 cd web-ui
