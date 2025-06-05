@@ -11,6 +11,7 @@ using JobCounselor.Application.Commands.UpdateProfile;
 using JobCounselor.Application.Interfaces;
 using JobCounselor.Infrastructure;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations; // for EnableAnnotations extension
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
@@ -90,7 +91,9 @@ var applicationAssembly = typeof(CreateProfileCommand).Assembly;
 
 // Register MediatR handlers and FluentValidation validators discovered in the
 // Application project assembly.
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
+// MediatR v11 only supports registering assemblies directly. This scans
+// the Application project for request handlers and related services.
+builder.Services.AddMediatR(applicationAssembly);
 builder.Services.AddValidatorsFromAssembly(applicationAssembly);
 
 // Register infrastructure services (EF Core, repositories, logging, etc.).
@@ -132,8 +135,9 @@ var api = app.MapGroup("/api/v1").RequireAuthorization();
 
 // ---------------------------- Profile endpoints ----------------------------
 
-api.MapGet("/profiles", async (IProfileRepository repo) =>
-        await repo.Query().ToListAsync())
+// Listing all profiles is not yet implemented in the repository layer.
+// For now return a placeholder response.
+api.MapGet("/profiles", () => Results.Ok("profile list placeholder"))
    .WithName("GetProfiles")
    .WithTags("Profile")
    .WithOpenApi();
