@@ -1,9 +1,11 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authentication;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 using JobCounselor.Infrastructure.Data;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Containers;
@@ -32,7 +34,15 @@ public class PostgresWebApplicationFactory : WebApplicationFactory<Program>, IAs
     }
 
     /// <inheritdoc />
-    public async Task InitializeAsync() => await _postgres.StartAsync();
+    public async Task InitializeAsync()
+    {
+        if (!File.Exists("/usr/bin/docker"))
+        {
+            throw new Xunit.Sdk.SkipException("Docker is not available");
+        }
+
+        await _postgres.StartAsync();
+    }
 
     /// <inheritdoc />
     public new async Task DisposeAsync() => await _postgres.DisposeAsync();
@@ -54,8 +64,8 @@ public class PostgresWebApplicationFactory : WebApplicationFactory<Program>, IAs
                 options.UseNpgsql(_postgres.ConnectionString));
 
             // Switch authentication to the lightweight test scheme.
-            services.AddAuthentication(TestAuthHandler.Scheme)
-                .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.Scheme, _ => { });
+            services.AddAuthentication(TestAuthHandler.SchemeName)
+                .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.SchemeName, _ => { });
         });
     }
 }

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Json;
 using JobCounselor.Application.Commands.CreateProfile;
 using JobCounselor.Application.Commands.UpdateProfile;
 using Xunit;

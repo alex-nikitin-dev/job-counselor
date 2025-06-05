@@ -200,3 +200,8 @@ if (app.Environment.IsDevelopment())
 
 await app.RunAsync();
 
+/// <summary>
+/// Marker partial class used by WebApplicationFactory for integration tests.
+/// </summary>
+public partial class Program { }
+
