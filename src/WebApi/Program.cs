@@ -10,6 +10,7 @@ using JobCounselor.Application.Commands.CreateProfile;
 using JobCounselor.Application.Commands.UpdateProfile;
 using JobCounselor.Application.Interfaces;
 using JobCounselor.Infrastructure;
+using JobCounselor.Infrastructure.Data;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations; // for EnableAnnotations extension
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -189,5 +190,13 @@ api.MapGet("/analytics", () => Results.Ok("analytics placeholder"))
    .WithTags("Analytics")
    .WithOpenApi();
 
-app.Run();
+// Seed development data and start the application.
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
+    await seeder.SeedAsync();
+}
+
+await app.RunAsync();
 

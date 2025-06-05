@@ -11,6 +11,14 @@ public sealed record ExperienceItem
     public DateTime? EndDate { get; }
     public string Description { get; }
 
+    // Parameterless constructor for EF Core.
+    private ExperienceItem()
+    {
+        Title = string.Empty;
+        Company = string.Empty;
+        Description = string.Empty;
+    }
+
     /// <summary>
     /// Creates a new <see cref="ExperienceItem"/> instance.
     /// </summary>

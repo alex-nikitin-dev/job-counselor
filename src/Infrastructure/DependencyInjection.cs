@@ -33,13 +33,26 @@ public static class DependencyInjection
         IConfiguration configuration,
         IHostEnvironment environment)
     {
-        // Configure Entity Framework Core using the in-memory provider by default.
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseInMemoryDatabase("AppDb"));
+        // Configure Entity Framework Core. During development we use SQLite to
+        // allow testing migrations. In production or tests we fall back to the
+        // lightweight in-memory provider.
+        if (environment.IsDevelopment())
+        {
+            var connection = configuration.GetConnectionString("DefaultConnection")
+                ?? "Data Source=jobcounselor.db";
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite(connection));
+        }
+        else
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseInMemoryDatabase("AppDb"));
+        }
 
         // Register repositories.
         services.AddScoped<IRepository<Profile>, EfRepository<Profile>>();
         services.AddScoped<IProfileRepository, ProfileRepository>();
+        services.AddTransient<DbSeeder>();
 
         // Register the AI cover letter provider and associated HttpClient.
         services.AddHttpClient<IAiCoverLetterProvider, OllamaCoverLetterProvider>();

@@ -8,6 +8,13 @@ public sealed record Skill
     public string Name { get; }
     public string Level { get; }
 
+    // Parameterless constructor for EF Core.
+    private Skill()
+    {
+        Name = string.Empty;
+        Level = string.Empty;
+    }
+
     /// <summary>
     /// Creates a new <see cref="Skill"/> instance.
     /// </summary>
