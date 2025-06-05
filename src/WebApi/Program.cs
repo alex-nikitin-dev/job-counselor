@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------------------
+// Entry point for the JobCounselor minimal Web API.
+// This file configures the HTTP pipeline and defines all API endpoints.
+// ---------------------------------------------------------------------------
 using System.Reflection;
 using AspNet.Security.OAuth.GitHub;
 using AspNet.Security.OAuth.LinkedIn;
